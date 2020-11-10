@@ -153,7 +153,7 @@ function update(svg, x, y, data, vars=0) {
         .attr("y2", function(d) { return y(d.overall); })
         .attr("stroke", "grey")
 
-      .on('mouseover', function(d,i) {
+    /*  .on('mouseover', function(d,i) {
       //console.log('mouseover on ' + d.properties.name);
       d3.select(this)
         .style("stroke", "cyan")
@@ -161,7 +161,7 @@ function update(svg, x, y, data, vars=0) {
       tooltip_map_div
         .style("display", "inline");
     })
-    /*.on('mousemove',function(d,i) {
+    .on('mousemove',function(d,i) {
       //console.log('mousemove on ' + d.properties.name);
       tooltip_map_div
         //.text("Country: " + d.properties.name)// + "<br />" + "GDP: " + yearData[d.properties.name])
