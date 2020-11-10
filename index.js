@@ -78,6 +78,19 @@ setTimeout(function(){
 update(svg, x, y, data3, vars=0);
 },200);
 
+// tooltip div
+var tooltip_map_div = d3.select("body").append("div")
+  .attr("class", "tooltip-map")
+  .style("display", "none");
+
+tooltip_map_div.append("text")
+  .attr("id", "tooltip-map-text1");
+
+tooltip_map_div.append("br");
+
+tooltip_map_div.append("text")
+  .attr("id", "tooltip-map-text2");
+
 
 var color = "green";
 var triangleSize = 25;
@@ -139,6 +152,37 @@ function update(svg, x, y, data, vars=0) {
         .attr("y1", y(0))
         .attr("y2", function(d) { return y(d.overall); })
         .attr("stroke", "grey")
+
+      .on('mouseover', function(d,i) {
+      //console.log('mouseover on ' + d.properties.name);
+      d3.select(this)
+        .style("stroke", "cyan")
+        .style("stroke-width", "4px");
+      tooltip_map_div
+        .style("display", "inline");
+    })
+    /*.on('mousemove',function(d,i) {
+      //console.log('mousemove on ' + d.properties.name);
+      tooltip_map_div
+        //.text("Country: " + d.properties.name)// + "<br />" + "GDP: " + yearData[d.properties.name])
+        .style("left", (d3.event.pageX + 10) + "px")
+        .style("top", (d3.event.pageY - 10) + "px");
+      tooltip_map_div.select("#tooltip-map-text1")
+        .text("Country: " + d.properties.name);
+      tooltip_map_div.select("#tooltip-map-text2")
+        .text("GDP: " + yearData[d.properties.name]);
+    })
+    .on('mouseout', function(d,i) {
+      //console.log('mouseout on ' + d.properties.name);
+      d3.select(this)
+        .style("stroke", "black")
+        .style("stroke-width", "1px");
+      tooltip_map_div
+        .style("display", "none");
+      tooltip_map_div
+        .style("left", (d3.event.pageX - 34) + "px")
+        .style("top", (d3.event.pageY - 12) + "px");
+    })*/
 
         // update bars
     u
