@@ -79,20 +79,46 @@ update(svg, x, y, data3, vars=0);
 },200);
 
 
-//})
+var color = "green";
+var triangleSize = 25;
+var verticalTransform = 5 + Math.sqrt(triangleSize);
+
+var triangle = d3.symbol()
+            .type(d3.symbolTriangle)
+            .size(triangleSize)
+;
+
 
 // A function that create / update the plot for a given variable:
 function update(svg, x, y, data, vars=0) {
 
-      var j = svg.selectAll(".myLine")
+    var j = svg.selectAll(".myLine")
       .data(data)
-
-
 
     // variable u: map data to existing circle
     var u = svg.selectAll("circle")
       .data(data)
 
+    var tort = svg.selectAll(".tort")
+      .data(data)
+
+    var meat = svg.selectAll(".meat")
+      .data(data)
+
+    var filling1 = svg.selectAll(".f1")
+      .data(data)
+    var filling2 = svg.selectAll(".f2")
+      .data(data)
+    var filling3 = svg.selectAll(".f3")
+      .data(data)
+
+    var unif = svg.selectAll(".unif")
+      .data(data)
+
+    var sals1 = svg.selectAll(".sals1")
+      .data(data)
+    var sals2 = svg.selectAll(".sals2")
+      .data(data)
 
 
   /*var u = svg.selectAll("rect")
@@ -107,6 +133,7 @@ function update(svg, x, y, data, vars=0) {
       .merge(j)
       .transition()
       .duration(1000)
+      .style("visibility", "visible")
         .attr("x1", function(d) { return x(d.Location); })
         .attr("x2", function(d) { return x(d.Location); })
         .attr("y1", y(0))
@@ -120,10 +147,127 @@ function update(svg, x, y, data, vars=0) {
       .merge(u)
       .transition()
       .duration(1000)
+      .style("visibility", "visible")
         .attr("cx", function(d) { return x(d.Location); })
         .attr("cy", function(d) { return y(d.overall); })
-        .attr("r", 8)
-        .attr("fill", "#69b3a2");
+        .attr("r", 25)               // set the radius
+        .style("stroke-opacity", .5) // set the stroke opacity
+        .style("stroke", "red")      // set the line colour
+        .style("fill", "none");
+
+    tort
+      .enter()
+      .append("ellipse")
+      .attr("class", "tort")
+      .merge(tort)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("cx", function(d) { return x(d.Location); })
+        .attr("cy", function(d) { return y(d.Tortilla); })
+        .attr("rx", 20)               // set the radius
+        .attr("ry", 7.5)               // set the radius
+        .style("fill", "#ffcc66");
+
+    meat
+      .enter()
+      .append("rect")
+      .attr("class", "meat")
+      .merge(meat)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("x", function(d) { return x(d.Location)-10; })
+        .attr("y", function(d) { return y(d.Meat)+4; })
+        .attr("width", 20)
+        .attr("height", 8)
+        .attr("fill", "#800000");
+
+    filling1
+      .enter()
+      .append("ellipse")
+      .attr("class", "f1")
+      .merge(filling1)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("cx", function(d) { return x(d.Location)-5; })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#990000");
+
+    filling2
+      .enter()
+      .append("ellipse")
+      .attr("class", "f2")
+      .merge(filling2)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("cx", function(d) { return x(d.Location); })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#fff2e6");
+
+    filling3
+      .enter()
+      .append("ellipse")
+      .attr("class", "f3")
+      .merge(filling3)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("cx", function(d) { return x(d.Location)+5; })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#009900");
+
+    unif
+      .enter()
+      .append("rect")
+      .attr("class", "unif")
+      .merge(unif)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("x", function(d) { return x(d.Location)-12.5; })
+        .attr("y", function(d) { return y(d.Uniformity)+4; })
+        .attr("width", 25)
+        .attr("height", 3)
+        .attr("fill", "black ");
+    
+
+    sals1
+      .enter()
+      .append("ellipse")
+      .attr("class", "sals1")
+      .merge(sals1)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("cx", function(d) { return x(d.Location)-4; })
+        .attr("cy", function(d) { return y(d.Salsa); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 5.5)               // set the radius
+        .style("fill", "red");
+
+    sals2
+      .enter()
+      .append("ellipse")
+      .attr("class", "sals2")
+      .merge(sals2)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("cx", function(d) { return x(d.Location)+4; })
+        .attr("cy", function(d) { return y(d.Salsa); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 5.5)               // set the radius
+        .style("fill", "red");
+
     /*u
     .enter()
     .append("rect")
@@ -161,8 +305,123 @@ function update(svg, x, y, data, vars=0) {
       .duration(1000)
         .attr("cx", function(d) { return x(d.Location); })
         .attr("cy", function(d) { return y(d.Tortilla); })
-        .attr("r", 8)
-        .attr("fill", "#69b3a2");
+        .attr("r", 28)               // set the radius
+        .style("stroke-opacity", .5) // set the stroke opacity
+        .style("stroke", "red")      // set the line colour
+        .style("fill", "none");
+
+    tort
+      .enter()
+      .append("ellipse")
+      .attr("class", "tort")
+      .merge(tort)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("cx", function(d) { return x(d.Location); })
+        .attr("cy", function(d) { return y(d.Tortilla); })
+        .attr("rx", 20)               // set the radius
+        .attr("ry", 7.5)               // set the radius
+        .style("fill", "#ffcc66");
+
+    meat
+      .enter()
+      .append("rect")
+      .attr("class", "meat")
+      .merge(meat)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("x", function(d) { return x(d.Location)-10; })
+        .attr("y", function(d) { return y(d.Meat)+4; })
+        .attr("width", 20)
+        .attr("height", 8)
+        .attr("fill", "#800000");
+
+    filling1
+      .enter()
+      .append("ellipse")
+      .attr("class", "f1")
+      .merge(filling1)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)-5; })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#990000");
+
+    filling2
+      .enter()
+      .append("ellipse")
+      .attr("class", "f2")
+      .merge(filling2)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location); })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#fff2e6");
+
+    filling3
+      .enter()
+      .append("ellipse")
+      .attr("class", "f3")
+      .merge(filling3)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)+5; })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#009900");
+
+    unif
+      .enter()
+      .append("rect")
+      .attr("class", "unif")
+      .merge(unif)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("x", function(d) { return x(d.Location)-12.5; })
+        .attr("y", function(d) { return y(d.Uniformity)+4; })
+        .attr("width", 25)
+        .attr("height", 3)
+        .attr("fill", "black ");
+    
+
+    sals1
+      .enter()
+      .append("ellipse")
+      .attr("class", "sals1")
+      .merge(sals1)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)-4; })
+        .attr("cy", function(d) { return y(d.Salsa); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 5.5)               // set the radius
+        .style("fill", "red");
+
+    sals2
+      .enter()
+      .append("ellipse")
+      .attr("class", "sals2")
+      .merge(sals2)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)+4; })
+        .attr("cy", function(d) { return y(d.Salsa); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 5.5)               // set the radius
+        .style("fill", "red");
   }
   else if (vars == 2) {
     j
@@ -187,8 +446,123 @@ function update(svg, x, y, data, vars=0) {
       .duration(1000)
         .attr("cx", function(d) { return x(d.Location); })
         .attr("cy", function(d) { return y(d.Meat); })
-        .attr("r", 8)
-        .attr("fill", "#69b3a2");
+        .attr("r", 20)               // set the radius
+        .style("stroke-opacity", .5) // set the stroke opacity
+        .style("stroke", "red")      // set the line colour
+        .style("fill", "none");
+
+        tort
+      .enter()
+      .append("ellipse")
+      .attr("class", "tort")
+      .merge(tort)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location); })
+        .attr("cy", function(d) { return y(d.Tortilla); })
+        .attr("rx", 20)               // set the radius
+        .attr("ry", 7.5)               // set the radius
+        .style("fill", "#ffcc66");
+
+    meat
+      .enter()
+      .append("rect")
+      .attr("class", "meat")
+      .merge(meat)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("x", function(d) { return x(d.Location)-10; })
+        .attr("y", function(d) { return y(d.Meat)+4; })
+        .attr("width", 20)
+        .attr("height", 8)
+        .attr("fill", "#800000");
+
+    filling1
+      .enter()
+      .append("ellipse")
+      .attr("class", "f1")
+      .merge(filling1)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)-5; })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#990000");
+
+    filling2
+      .enter()
+      .append("ellipse")
+      .attr("class", "f2")
+      .merge(filling2)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location); })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#fff2e6");
+
+    filling3
+      .enter()
+      .append("ellipse")
+      .attr("class", "f3")
+      .merge(filling3)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)+5; })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#009900");
+
+    unif
+      .enter()
+      .append("rect")
+      .attr("class", "unif")
+      .merge(unif)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("x", function(d) { return x(d.Location)-12.5; })
+        .attr("y", function(d) { return y(d.Uniformity)+4; })
+        .attr("width", 25)
+        .attr("height", 3)
+        .attr("fill", "black ");
+    
+
+    sals1
+      .enter()
+      .append("ellipse")
+      .attr("class", "sals1")
+      .merge(sals1)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)-4; })
+        .attr("cy", function(d) { return y(d.Salsa); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 5.5)               // set the radius
+        .style("fill", "red");
+
+    sals2
+      .enter()
+      .append("ellipse")
+      .attr("class", "sals2")
+      .merge(sals2)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)+4; })
+        .attr("cy", function(d) { return y(d.Salsa); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 5.5)               // set the radius
+        .style("fill", "red");
   }
   else if (vars == 3) {
     j
@@ -213,8 +587,123 @@ function update(svg, x, y, data, vars=0) {
       .duration(1000)
         .attr("cx", function(d) { return x(d.Location); })
         .attr("cy", function(d) { return y(d.Fillings); })
-        .attr("r", 8)
-        .attr("fill", "#69b3a2");
+        .attr("r", 20)               // set the radius
+        .style("stroke-opacity", .5) // set the stroke opacity
+        .style("stroke", "red")      // set the line colour
+        .style("fill", "none");
+
+        tort
+      .enter()
+      .append("ellipse")
+      .attr("class", "tort")
+      .merge(tort)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location); })
+        .attr("cy", function(d) { return y(d.Tortilla); })
+        .attr("rx", 20)               // set the radius
+        .attr("ry", 7.5)               // set the radius
+        .style("fill", "#ffcc66");
+
+    meat
+      .enter()
+      .append("rect")
+      .attr("class", "meat")
+      .merge(meat)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("x", function(d) { return x(d.Location)-10; })
+        .attr("y", function(d) { return y(d.Meat)+4; })
+        .attr("width", 20)
+        .attr("height", 8)
+        .attr("fill", "#800000");
+
+    filling1
+      .enter()
+      .append("ellipse")
+      .attr("class", "f1")
+      .merge(filling1)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("cx", function(d) { return x(d.Location)-5; })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#990000");
+
+    filling2
+      .enter()
+      .append("ellipse")
+      .attr("class", "f2")
+      .merge(filling2)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("cx", function(d) { return x(d.Location); })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#fff2e6");
+
+    filling3
+      .enter()
+      .append("ellipse")
+      .attr("class", "f3")
+      .merge(filling3)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("cx", function(d) { return x(d.Location)+5; })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#009900");
+
+    unif
+      .enter()
+      .append("rect")
+      .attr("class", "unif")
+      .merge(unif)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("x", function(d) { return x(d.Location)-12.5; })
+        .attr("y", function(d) { return y(d.Uniformity)+4; })
+        .attr("width", 25)
+        .attr("height", 3)
+        .attr("fill", "black ");
+    
+
+    sals1
+      .enter()
+      .append("ellipse")
+      .attr("class", "sals1")
+      .merge(sals1)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)-4; })
+        .attr("cy", function(d) { return y(d.Salsa); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 5.5)               // set the radius
+        .style("fill", "red");
+
+    sals2
+      .enter()
+      .append("ellipse")
+      .attr("class", "sals2")
+      .merge(sals2)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)+4; })
+        .attr("cy", function(d) { return y(d.Salsa); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 5.5)               // set the radius
+        .style("fill", "red");
   }
   else if (vars == 4) {
     j
@@ -239,8 +728,123 @@ function update(svg, x, y, data, vars=0) {
       .duration(1000)
         .attr("cx", function(d) { return x(d.Location); })
         .attr("cy", function(d) { return y(d.Uniformity); })
-        .attr("r", 8)
-        .attr("fill", "#69b3a2");
+        .attr("r", 25)               // set the radius
+        .style("stroke-opacity", .5) // set the stroke opacity
+        .style("stroke", "red")      // set the line colour
+        .style("fill", "none");
+
+        tort
+      .enter()
+      .append("ellipse")
+      .attr("class", "tort")
+      .merge(tort)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location); })
+        .attr("cy", function(d) { return y(d.Tortilla); })
+        .attr("rx", 20)               // set the radius
+        .attr("ry", 7.5)               // set the radius
+        .style("fill", "#ffcc66");
+
+    meat
+      .enter()
+      .append("rect")
+      .attr("class", "meat")
+      .merge(meat)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("x", function(d) { return x(d.Location)-10; })
+        .attr("y", function(d) { return y(d.Meat)+4; })
+        .attr("width", 20)
+        .attr("height", 8)
+        .attr("fill", "#800000");
+
+    filling1
+      .enter()
+      .append("ellipse")
+      .attr("class", "f1")
+      .merge(filling1)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)-5; })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#990000");
+
+    filling2
+      .enter()
+      .append("ellipse")
+      .attr("class", "f2")
+      .merge(filling2)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location); })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#fff2e6");
+
+    filling3
+      .enter()
+      .append("ellipse")
+      .attr("class", "f3")
+      .merge(filling3)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)+5; })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#009900");
+
+    unif
+      .enter()
+      .append("rect")
+      .attr("class", "unif")
+      .merge(unif)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("x", function(d) { return x(d.Location)-12.5; })
+        .attr("y", function(d) { return y(d.Uniformity)+4; })
+        .attr("width", 25)
+        .attr("height", 3)
+        .attr("fill", "black ");
+    
+
+    sals1
+      .enter()
+      .append("ellipse")
+      .attr("class", "sals1")
+      .merge(sals1)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)-4; })
+        .attr("cy", function(d) { return y(d.Salsa); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 5.5)               // set the radius
+        .style("fill", "red");
+
+    sals2
+      .enter()
+      .append("ellipse")
+      .attr("class", "sals2")
+      .merge(sals2)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)+4; })
+        .attr("cy", function(d) { return y(d.Salsa); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 5.5)               // set the radius
+        .style("fill", "red");
   }
   else if (vars == 5) {
     j
@@ -265,8 +869,123 @@ function update(svg, x, y, data, vars=0) {
       .duration(1000)
         .attr("cx", function(d) { return x(d.Location); })
         .attr("cy", function(d) { return y(d.Salsa); })
-        .attr("r", 8)
-        .attr("fill", "#69b3a2");
+        .attr("r", 20)               // set the radius
+        .style("stroke-opacity", .5) // set the stroke opacity
+        .style("stroke", "red")      // set the line colour
+        .style("fill", "none");
+
+        tort
+      .enter()
+      .append("ellipse")
+      .attr("class", "tort")
+      .merge(tort)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location); })
+        .attr("cy", function(d) { return y(d.Tortilla); })
+        .attr("rx", 20)               // set the radius
+        .attr("ry", 7.5)               // set the radius
+        .style("fill", "#ffcc66");
+
+    meat
+      .enter()
+      .append("rect")
+      .attr("class", "meat")
+      .merge(meat)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("x", function(d) { return x(d.Location)-10; })
+        .attr("y", function(d) { return y(d.Meat)+4; })
+        .attr("width", 20)
+        .attr("height", 8)
+        .attr("fill", "#800000");
+
+    filling1
+      .enter()
+      .append("ellipse")
+      .attr("class", "f1")
+      .merge(filling1)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)-5; })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#990000");
+
+    filling2
+      .enter()
+      .append("ellipse")
+      .attr("class", "f2")
+      .merge(filling2)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location); })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#fff2e6");
+
+    filling3
+      .enter()
+      .append("ellipse")
+      .attr("class", "f3")
+      .merge(filling3)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("cx", function(d) { return x(d.Location)+5; })
+        .attr("cy", function(d) { return y(d.Fillings); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 7)               // set the radius
+        .style("fill", "#009900");
+
+    unif
+      .enter()
+      .append("rect")
+      .attr("class", "unif")
+      .merge(unif)
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden")
+        .attr("x", function(d) { return x(d.Location)-12.5; })
+        .attr("y", function(d) { return y(d.Uniformity)+4; })
+        .attr("width", 25)
+        .attr("height", 3)
+        .attr("fill", "black ");
+    
+
+    sals1
+      .enter()
+      .append("ellipse")
+      .attr("class", "sals1")
+      .merge(sals1)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("cx", function(d) { return x(d.Location)-4; })
+        .attr("cy", function(d) { return y(d.Salsa); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 5.5)               // set the radius
+        .style("fill", "red");
+
+    sals2
+      .enter()
+      .append("ellipse")
+      .attr("class", "sals2")
+      .merge(sals2)
+      .transition()
+      .duration(1000)
+      .style("visibility", "visible")
+        .attr("cx", function(d) { return x(d.Location)+4; })
+        .attr("cy", function(d) { return y(d.Salsa); })
+        .attr("rx", 7)               // set the radius
+        .attr("ry", 5.5)               // set the radius
+        .style("fill", "red");
   }
   
 }
