@@ -14,8 +14,7 @@ The data is processing into a simple aggregation for several ingredients in a bu
 
 The visualization uses minimal icons/representations of burrito ingridients to show the user which particular ratings is being viewed.
 
-The design of the chart is loosley inspired by: 
-    * [How's life?](http://www.oecdbetterlifeindex.org/#/31111111111)
+The design of the chart is loosely inspired by: [How's life?](http://www.oecdbetterlifeindex.org/#/31111111111).
 
 ## Screenshot
 
