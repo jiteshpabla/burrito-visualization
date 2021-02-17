@@ -6,11 +6,13 @@ The audience for this visualization is visitors to a musuem. The goal is to comm
 
 ## Dataset 
 
-* Burritos in San Diego ([source](https://www.kaggle.com/srcole/burritos-in-san-diego)): This dataset contains a single table that lists several ratings of ~200 burritos from ~50 restaurants in San Diego.
+[Data source](https://www.kaggle.com/srcole/burritos-in-san-diego)): This dataset contains a single table that lists several ratings of >400 burritos from >50 restaurants in San Diego.
+
+The data is processing into a simple aggregation for several ingredients in a burrito by using the Pandas library in a Jupyter notebook.
 
 ## Design
 
-The visualization uses minimal icons/representations of burrito ingridiants to show the user which particular ratings is being viewed.
+The visualization uses minimal icons/representations of burrito ingridients to show the user which particular ratings is being viewed.
 
 The design of the chart is loosley inspired by: 
     * [How's life?](http://www.oecdbetterlifeindex.org/#/31111111111)
